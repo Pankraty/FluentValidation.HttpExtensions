@@ -3,7 +3,8 @@
     <PropertyGroup>
         <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
         <LangVersion>9</LangVersion>
-        <Title>FluentValidation.HttpExtensions</Title>
+        <AssemblyName>Pankraty.FluentValidation.HttpExtensions</AssemblyName>
+        <Title>Pankraty.FluentValidation.HttpExtensions</Title>
         <Authors>Aleksei Pankratev</Authors>
         <Description>An extension to FluentValidation.AspNetCore library that allows returning HTTP responses other than BadRequest, such as NotFound, Forbidden, and so on.</Description>
         <PackageProjectUrl>https://github.com/Pankraty/FluentValidation.HttpExtensions</PackageProjectUrl>
