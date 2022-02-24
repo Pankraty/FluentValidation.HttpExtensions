@@ -1,4 +1,4 @@
-# FluentValidation.HttpExtensions
+# Pankraty.FluentValidation.HttpExtensions
 
 [FluentValidation](https://github.com/FluentValidation/FluentValidation) is a powerful library that seamlessly integrates
 with ASP.NET and gives us the ability to keep all validation logic well-organized. However, if we want to implement comprehensive
@@ -59,7 +59,7 @@ The error for the `Quantity` field will be shown only when there are no errors w
 
 ## Usage
 
-1. Install NuGet package `FluentValidation.HttpExtensions` using command-line or GUI of your choice.
+1. Install NuGet package `Pankraty.FluentValidation.HttpExtensions` using command-line or GUI of your choice.
 2. In `Startup.cs`, after registering `FluentValidation`, register HTTP extensions to it:
     ```
     public void ConfigureServices(IServiceCollection services)

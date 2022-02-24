@@ -1,0 +1,31 @@
+name: Publish
+
+on:
+  push:
+    tags: [ v.* ]
+
+jobs:
+  publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: olegtarasov/get-tag@v2.1
+      id: tagName
+      with:
+        tagRegex: "v\\.?(?<version>.*)" 
+    - name: Setup .NET Core 3.1	
+      uses: actions/setup-dotnet@v1	
+      with:	
+        dotnet-version: 3.1.x
+    - name: Setup .NET 5.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Pack
+      run: |
+        cd src
+        dotnet pack --configuration=Release -p:PackageVersion=${{ steps.tagName.outputs.version }}
+    - name: Publish
+      run: dotnet nuget push "**.nupkg" --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json --skip-duplicate
