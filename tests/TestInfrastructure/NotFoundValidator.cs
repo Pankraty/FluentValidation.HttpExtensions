@@ -16,6 +16,11 @@ namespace FluentValidation.HttpExtensions.TestInfrastructure
                 .Must(x => x == "Existing")
                 .AsNotFound()
                 .WithMessage("Could not find {PropertyName} {PropertyValue}");
+
+            RuleFor(x => x)
+                .Must(x => x.Address == "Existing" && x.PostalCode == "Existing")
+                .AsNotFound()
+                .WithMessage("Could not find entity");
         }
     }
 }
