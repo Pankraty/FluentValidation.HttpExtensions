@@ -34,16 +34,23 @@ namespace FluentValidation.HttpExtensions
             ruleBuilder.UseHttpCode(HttpStatusCode.Locked);
 
         private static string BuildPropertyName(HttpStatusCode httpStatusCode) =>
-            $"{ErrorStatusConst.Prefix}{(int) httpStatusCode}";
+            $"{ErrorStatusConst.Prefix}{(int)httpStatusCode}";
 
         private static IRuleBuilderOptions<T, TProperty> UseHttpCode<T, TProperty>(
             this IRuleBuilderOptions<T, TProperty> ruleBuilder, HttpStatusCode httpStatusCode)
         {
             string propertyName = "";
-            return ruleBuilder
-                .Configure(x => propertyName = x.GetDisplayName(null))
-                .WithName(propertyName)
-                .OverridePropertyName(BuildPropertyName(httpStatusCode));
+
+            var options = ruleBuilder.Configure(x => propertyName = x.GetDisplayName(null));
+
+            if (!string.IsNullOrEmpty(propertyName))
+            {
+                options.WithName(propertyName);
+            }
+
+            options.OverridePropertyName(BuildPropertyName(httpStatusCode));
+
+            return options;
         }
     }
 }

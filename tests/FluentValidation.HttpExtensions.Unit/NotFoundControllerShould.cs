@@ -36,14 +36,16 @@ namespace FluentValidation.HttpExtensions.Unit
                 {
                     "Could not find Name James Bond",
                     "Could not find Address London, Great Britain",
+                    "Could not find entity"
                 });
         }
 
         [Fact]
         public async Task Use_Single_Message_When_Another_Rule_Passed()
         {
-            _testEntity.Name = "Existing";
-            _testEntity.Address = "London, Great Britain";
+            _testEntity.Name = "James Bond";
+            _testEntity.PostalCode = "Existing";
+            _testEntity.Address = "Existing";
 
             var response = await Post();
             var problems = await response.DeserializeAs<ValidationProblemDetails>();
@@ -51,7 +53,7 @@ namespace FluentValidation.HttpExtensions.Unit
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
             problems.Errors.Should()
                 .OnlyContain(x => x.Key == "" &&
-                                  x.Value.Single() == "Could not find Address London, Great Britain");
+                                  x.Value.Single() == "Could not find Name James Bond");
         }
 
         [Fact]
@@ -59,6 +61,7 @@ namespace FluentValidation.HttpExtensions.Unit
         {
             _testEntity.Name = "Existing";
             _testEntity.Address = "Existing";
+            _testEntity.PostalCode = "Existing";
 
             var response = await Post();
 
